@@ -1,10 +1,22 @@
 var flame, rain;
 var key;
+var i;
+
+var rainlist =[];
 
 function startGame() {
     flame = new component(10, 10, "red", 10, 134);
-    rain = new component(5, 10, "blue", 20, 20);
+    //rain = new component(5, 10, "blue", 20, 20);
     myGameArea.start();
+}
+
+function raining (){
+    //rain = new component(5, 10, "blue", Math.random() * 200, 10);
+    rainlist.push(new component(5, 10, "blue", Math.random() * 200, 10))
+}
+
+for (i=0; i<10;i++){
+    raining();
 }
 
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
