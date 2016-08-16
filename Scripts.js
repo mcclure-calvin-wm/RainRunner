@@ -1,5 +1,5 @@
- var flame, rain;
- var key;
+var flame, rain;
+var key;
 
 function startGame() {
     flame = new component(10, 10, "red", 10, 134);
@@ -7,28 +7,28 @@ function startGame() {
     myGameArea.start();
 }
 
- // window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
- // window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
+window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
+window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
 
- window.addEventListener('keydown', function(event) {
-     switch (event.keyCode) {
-         case 37: // Left
-             flame.moveLeft();
-             break;
+window.addEventListener('keydown', function(event) {
+    switch (event.keyCode) {
+        case 37: // Left
+            //flame.moveLeft();
+            break;
 
-         case 38: // Up
-             flame.moveUp();
-             break;
+        case 38: // Up
+            flame.moveUp();
+            break;
 
-         case 39: // Right
-             flame.moveRight();
-             break;
+        case 39: // Right
+            //flame.moveRight();
+            break;
 
-         case 40: // Down
-             flame.moveDown();
-             break;
-     }
- }, false);
+        case 40: // Down
+            flame.moveDown();
+            break;
+    }
+}, false);
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
@@ -56,7 +56,7 @@ function component(width, height, color, x, y) {
     this.x = x;
     this.y = y;
     this.fall = function () {
-        this.y += 1;
+        this.y += 2;
 
         ctx = myGameArea.context;
         ctx.fillStyle = color;
@@ -69,18 +69,18 @@ function component(width, height, color, x, y) {
 
         //unused
         /*if (Key.isDown(Key.UP)) this.moveUp();
-        if (Key.isDown(Key.DOWN)) this.moveDown();*/
+         if (Key.isDown(Key.DOWN)) this.moveDown();*/
 
-        // if (Key.isDown(Key.LEFT)) this.moveLeft();
-        // if (Key.isDown(Key.RIGHT)) this.moveRight();
+        if (Key.isDown(Key.LEFT)) this.moveLeft();
+        if (Key.isDown(Key.RIGHT)) this.moveRight();
 
     };
     this.moveLeft = function() {
-        this.x -= 1;
+        this.x -= 2;
     };
 
     this.moveRight = function() {
-        this.x += 1;
+        this.x += 2;
     };
 
     /*this.moveUp = function() {
@@ -98,27 +98,24 @@ function updateGameArea() {
     rain.fall();
 }
 
- // var Key = {
- //     _pressed: {},
- //
- //     LEFT: 37,
- //     UP: 38,
- //     RIGHT: 39,
- //     DOWN: 40,
- //
- //     isDown: function(keyCode) {
- //         return this._pressed[keyCode];
- //     },
- //
- //     onKeydown: function(event) {
- //         this._pressed[event.keyCode] = true;
- //     },
- //
- //     onKeyup: function(event) {
- //         delete this._pressed[event.keyCode];
- //     }
- // };
+var Key = {
+    _pressed: {},
 
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
 
+    isDown: function(keyCode) {
+        return this._pressed[keyCode];
+    },
 
+    onKeydown: function(event) {
+        this._pressed[event.keyCode] = true;
+    },
+
+    onKeyup: function(event) {
+        delete this._pressed[event.keyCode];
+    }
+};
 
