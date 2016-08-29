@@ -1,4 +1,5 @@
-var flame, rain;
+var flame;
+var rain;
 var key;
 var i;
 
@@ -107,7 +108,10 @@ function component(width, height, color, x, y) {
 function updateGameArea() {
     myGameArea.clear();
     flame.update();
-    rain.fall();
+    //rain.fall();
+    for(var i = 0; i < rainlist.length; i++) {
+        rainlist[i].fall();
+    }
 }
 
 var Key = {
