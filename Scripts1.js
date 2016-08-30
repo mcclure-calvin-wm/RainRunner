@@ -1,35 +1,63 @@
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
-var entities = [];
+var keys = [];
+window.addEventListener('keydown', function(e) {
+    keys[e.keyCode] = true;
+});
+window.addEventListener('keyup', function(e) {
+    keys[e.keyCode] = false;
+});
+
+var player;
+var raindrops = [];
 
 function update (){
-    for (var i = 0; i < entities.length; i++){
-        entities[i].update(i);
+    player.update();
+    for (var i = 0; i < raindrops.length; i++){
+        raindrops[i].update(i);
     }
 }
 
 function render (){
     context.clearRect(0,0,800,480);
-    for (var i = 0; i < entities.length; i++){
-        entities[i].render()
-
+    player.render();
+    for (var i = 0; i < raindrops.length; i++){
+        raindrops[i].render()
     }
     requestAnimationFrame(render);
 }
 
 function init(){
+    var fire = new Image();
+    fire.src = "pics/fire.png";
+    player = new Player(0, canvas.height - 48, 32, 32, fire);
+
     var rain = new Image();
     rain.src = "pics/rain.png";
-
+    setInterval(function () {
+        raindrops.push(new Entity(Math.random() * (800 - 20), -32, 20, 32, rain));
+    }, 200);
 
     setInterval(update, 1000 / 60);
-
     requestAnimationFrame(render);
+}
 
-    setInterval(function (){
-        entities.push(new Entity(Math.random() * (800 - 20), -32, 20, 32, rain));
-    }, 200);
+function Player(x, y, width, height, sprite) {
+    var e = new Entity(x, y, width, height, sprite);
+
+    e.update = function() {
+        //A
+        if(keys[65]) e.x--;
+        //D
+        if(keys[68]) e.x++;
+
+        //for(var i = 0; i < raindrops.length; i++) {
+        //    if(e.collision(raindrops[i])) e.die();
+        //}
+    };
+
+    return e;
 }
 
 function Entity(x, y, width, height, sprite){
@@ -43,7 +71,7 @@ function Entity(x, y, width, height, sprite){
     this.update = function (i){
         this.y += 4;
         if (this.y > canvas.height){
-            entities.splice(i , 1);
+            raindrops.splice(i , 1);
 
         }
     };
