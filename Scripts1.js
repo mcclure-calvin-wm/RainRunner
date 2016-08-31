@@ -1,6 +1,22 @@
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
+
+
+// function createCanvas (x, y, width, height){
+//     this.x = x;
+//     this.y = y;
+//     this.style.width = width;
+//     this.style.height= height;
+// }
+
+// function height(){
+//     return screen.height + 'px';
+// }
+// function raft (){
+//     return screen.width + 'px';
+// }
+
 var keys = [];
 window.addEventListener('keydown', function(e) {
     keys[e.keyCode] = true;
@@ -31,12 +47,12 @@ function render (){
 function init(){
     var fire = new Image();
     fire.src = "pics/fire.png";
-    player = new Player(0, canvas.height - 48, 32, 32, fire);
+    player = new Player(0, canvas.height - 100, 64, 64, fire);
 
     var rain = new Image();
     rain.src = "pics/rain.png";
     setInterval(function () {
-        raindrops.push(new Entity(Math.random() * (800 - 20), -32, 20, 32, rain));
+        raindrops.push(new Entity(Math.random() * (800 - 20), -32, 30, 40, rain));
     }, 200);
 
     setInterval(update, 1000 / 60);
@@ -48,9 +64,9 @@ function Player(x, y, width, height, sprite) {
 
     e.update = function() {
         //A
-        if(keys[65]) e.x--;
+        if(keys[65]) e.x-= 5;
         //D
-        if(keys[68]) e.x++;
+        if(keys[68]) e.x+= 5;
 
         //for(var i = 0; i < raindrops.length; i++) {
         //    if(e.collision(raindrops[i])) e.die();
