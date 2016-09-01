@@ -1,21 +1,7 @@
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
-
-
-
-// function createCanvas (x, y, width, height){
-//     this.x = x;
-//     this.y = y;
-//     this.style.width = width;
-//     this.style.height= height;
-// }
-
-// function height(){
-//     return screen.height + 'px';
-// }
-// function raft (){
-//     return screen.width + 'px';
-// }
+canvas.style.width = window.innerWidth - 32 + "px";
+canvas.style.height = window.innerHeight - 32 + "px";
 
 var keys = [];
 window.addEventListener('keydown', function(e) {
@@ -83,6 +69,12 @@ function Entity(x, y, width, height, sprite){
     this.height = height;
     //this.color = color;
     this.sprite = sprite;
+
+    this.collision = function(entity) {
+        if(this.x < entity.x + entity.width && this.x + this.width > entity.x && this.y < entity.y + entity.height && this.y + this.height > entity.y){
+            //collision
+        }
+    };
 
     this.update = function (i){
         this.y += 4;
