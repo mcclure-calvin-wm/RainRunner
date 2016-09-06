@@ -54,9 +54,17 @@ function Player(x, y, width, height, sprite) {
         //D
         if(keys[68]) e.x+= 5;
 
-        //for(var i = 0; i < raindrops.length; i++) {
-        //    if(e.collision(raindrops[i])) e.die();
-        //}
+        var exit = false;
+
+        for(var i = 0; i < raindrops.length; i++) {
+           if(e.collision(raindrops[i])) {
+               if(!exit) {
+                   confirm("you lose");
+                   exit = true;
+                   location.reload();
+               }
+           }
+        }
     };
 
     return e;
@@ -71,11 +79,8 @@ function Entity(x, y, width, height, sprite){
     this.sprite = sprite;
 
     this.collision = function(entity) {
-        if(this.x < entity.x + entity.width && this.x + this.width > entity.x && this.y < entity.y + entity.height && this.y + this.height > entity.y){
-            //collision
-        }
+        return (this.x < entity.x + entity.width && this.x + this.width > entity.x && this.y < entity.y + entity.height && this.y + this.height > entity.y);
     };
-
     this.update = function (i){
         this.y += 4;
         if (this.y > canvas.height){
